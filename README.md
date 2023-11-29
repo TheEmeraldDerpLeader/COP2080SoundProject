@@ -2,4 +2,10 @@
 
 ## Some heading
 Not yet sure what to put here
-not sure setup.cfg is necessary. imo can get by with user inputed file paths and local files (i.e just using filenames).
+
+## Important dependencies / files
+- pydub needs ffmpeg or avlib. For ffmpeg on windows, download the executables and put them in the projects local dir. Could also add executables to path but that's cringe.
+- Audio files used in code are included in this commit, should remove later.
+
+## Other notes
+- problemTest.wav is the 2channel wav from canvas, just renamed

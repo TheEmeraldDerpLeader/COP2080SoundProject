@@ -1,11 +1,14 @@
-# COP2080SoundProject
+# Change Log for Grant's Branch
 
-## Some heading
-Not yet sure what to put here
+## Version 00.001.00
+Started audio loading and manipulation
 
-## Important dependencies / files
-- pydub needs ffmpeg or avlib. For ffmpeg on windows, download the executables and put them in the projects local dir. Could also add executables to path but that's cringe.
-- Audio files used in code are included in this commit, should remove later.
+### Audio
+Started working on functions and implementations for loading and converting files for scipy to use
 
-## Other notes
-- problemTest.wav is the 2channel wav from canvas, just renamed
+- Function to create a wav file from an audio file that scipy should guarenteed be able to use
+- Example of checking if scipy fails to load file
+- Tested loading and writing files 
+
+### Other
+- Added code for spectrogram plot (currently commented)
