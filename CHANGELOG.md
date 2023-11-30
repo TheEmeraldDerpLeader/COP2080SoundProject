@@ -1,5 +1,22 @@
 # Change Log for Grant's Branch
 
+## Version 00.002.00
+Created functions and stuff for most model stuff
+
+### Audio
+Finished and verified functions to load data, get spectrogram, get frequencies, etc...
+
+- Functions to load and convert files so scipy can create raw data from them
+- Functions to get data for amplitudes and frequencies
+- Function to convert amplitude data into decibels
+- Function to calculate RT60 (might be wrong, see comments)
+
+### Other
+- Testing code is moved into a main check
+- Cleaned up testing code
+- Added Cave14.ogg test file, has face in spectrogram
+- Added ReverbFart.ogg test file
+
 ## Version 00.001.00
 Started audio loading and manipulation
 
