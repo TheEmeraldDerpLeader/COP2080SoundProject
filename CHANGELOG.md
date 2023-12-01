@@ -1,5 +1,10 @@
 # Change Log for Grant's Branch
 
+## Version 00.002.01
+
+### Audio
+- Fixed rt60, doesn't always work with unlucky data, but that's how it's implemented in the slides
+
 ## Version 00.002.00
 Created functions and stuff for most model stuff
 

@@ -5,8 +5,8 @@ from scipy.io import wavfile
 from pydub import AudioSegment
 
 #To Do:
-#Not sure rt60 works correctly. Thinking decibel data should be smoothed out
-
+#rt60 sorta works, decibel data is inconsistent, seems 50/50
+# whether an unlucky amplitude results in unrealistic rt60
 
 #Use to create a mono-channel wav file from another audio file. Avoids metadata and bit depth problems for scipy
 def CreateTempWav(filename):
@@ -75,11 +75,12 @@ def ConvertAmpToDec(ampData):
 #Computes max volume time and RT60
 def ComputeRT60(decData, samplerate, t):
     #returns time when max decibels and length of time for rt60
+    print(decData)
     maxI = np.argmax(decData)
-    dif5 = np.nonzero(decData[maxI:]<=(decData[maxI]-5))[0][0]
-    dif25 = np.nonzero(decData[maxI:]<=(decData[maxI]-25))[0][0]
+    dif5 = np.abs(decData[maxI:]-(decData[maxI]-5)).argmin()
+    dif25 = np.abs(decData[maxI:]-(decData[maxI]-25)).argmin()
     rt20 = t[maxI+dif25]-t[maxI+dif5]
-    return maxI/samplerate,(rt20*3)/samplerate
+    return t[maxI],(rt20*3)
 
 #def GetHighestFreq(freqs):
 #    return max(freqs)
@@ -95,7 +96,7 @@ if __name__ == "__main__":
     spectrum, freqs, t, im = CalculateFrequencies(samplerate,data)
     
     lowData, medData, highData = GetLowMedHighData(spectrum,freqs)
-    decD = ConvertAmpToDec(lowData)
+    decD = ConvertAmpToDec(medData)
     startT, rtT = ComputeRT60(decD,samplerate,t)
     print(f"max vol at {startT} and rt60 of {rtT}")
 
