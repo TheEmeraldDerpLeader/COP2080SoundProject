@@ -7,7 +7,7 @@ Creation of additional graph
 """
 
 from tkinter import *
-from tkinter import filedialog, Button
+from tkinter import filedialog, Button, ttk
 
 # window.mainloop()
 
@@ -15,6 +15,7 @@ from tkinter import filedialog, Button
 class ButtonFunction(Button):
     def __init__(self, txt):
         super().__init__(text=txt, activebackground="light blue", relief=FLAT)
+        self.title = txt
         """
         Construct Button_Function object
         """
@@ -23,7 +24,8 @@ class ButtonFunction(Button):
         self.filepath = ""
 
     def load_audio(self):
-        """ Grabs audio files path
+        """
+        Grabs audio files path
         Mutates self.filepath
         """
         # find file path for audio file
@@ -37,8 +39,14 @@ class ButtonFunction(Button):
 
     def create_plot(self):
         """
-        Create plot element to embed into GUI main window
+        Add plot title
+        Plot the wave
+        RT60, RT40, RT20
         """
+        text = Label(text=self.title)
+        text.grid(row=3, columnspan=10, sticky="ew")
+        horizontalSeparator = ttk.Separator(orient="horizontal")
+        horizontalSeparator.grid(row=4, columnspan=6, sticky="ew")
         pass
 
 
