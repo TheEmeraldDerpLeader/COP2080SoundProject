@@ -16,40 +16,72 @@ Graphs:
 Display Graphs in Grid formation with RT60 values listed directly below them
 """
 import tkinter as tk
-from tkinter import Menu
+from tkinter import ttk
+from buttonfun import ButtonFunction
+# from ComputationModel import *
 
 # create the window
 root = tk.Tk()
 root.title("CSP Sound Project")
 root.resizable(False, False)
-root.geometry('800x600')
-root.config(bg='gray')
+root.geometry('900x600')
+root.config(bg='light gray')
 
-# Top Tool Bar:
-menubar = Menu()
+"""
+Button Event:
+On hover, change the button color
+On leave, return to default color
+"""
+def onHover(event):
+    event.widget.config(bg="gray")
 
-openButton = Menu(menubar, tearoff=False)
-menubar.add_cascade(label="Open")
-openButton.add_command(label="Open")
+def onLeave(event):
+    event.widget.config(bg="SystemButtonFace")
 
-combineButton = Menu(menubar, tearoff=False)
-menubar.add_cascade(label="Combine")
-combineButton.add_command(label="Combine")
 
-originalButton = Menu(menubar, tearoff=False)
-menubar.add_cascade(label="Disp Original")
-originalButton.add_command(label="Disp Original")
+"""
+All buttons aligned in a single tool bar along the top of the application
+"""
+# Open file button
+# Make a button object from buttonFun.py
+openButton = ButtonFunction("Open File")
+openButton.grid(row=0, column=0, ipadx=37.5)
+openButton.configure(command=openButton.load_audio)
+openButton.bind("<Enter>", onHover)
+openButton.bind("<Leave>", onLeave)
 
-cycleButton = Menu(menubar, tearoff=False)
-menubar.add_cascade(label="Cycle")
-cycleButton.add_command(label="Cycle")
+# Display OG function button
+displayOGButton = ButtonFunction("Dsp_OG_Wave")
+displayOGButton.grid(row=0, column=1, ipadx=37.5)
+displayOGButton.bind("<Enter>", onHover)
+displayOGButton.bind("<Leave>", onLeave)
 
-dispCombinedButton = Menu(menubar, tearoff=False)
-menubar.add_cascade(label="Disp Combined")
-dispCombinedButton.add_command(label="Disp Combined")
+# Combine graphs button
+combineButton = ButtonFunction("Combine")
+combineButton.grid(row=0, column=2, ipadx=37.5)
+combineButton.bind("<Enter>", onHover)
+combineButton.bind("<Leave>", onLeave)
 
-# Configure the root such that it displays the menubar in the application
-root.config(menu=menubar)
+# Cycle button
+cycleButton = ButtonFunction("Cycle")
+cycleButton.grid(row=0, column=3, ipadx=37.5)
+cycleButton.bind("<Enter>", onHover)
+cycleButton.bind("<Leave>", onLeave)
+
+# Display combined waveform button
+dispCombinedButton = ButtonFunction("Dsp_Combined_Waves")
+dispCombinedButton.grid(row=0, column=4, ipadx=37.5)
+dispCombinedButton.bind("<Enter>", onHover)
+dispCombinedButton.bind("<Leave>", onLeave)
+
+# Sixth plot
+sixthButton = ButtonFunction("Sixth Button")
+sixthButton.grid(row=0, column=5, ipadx=37.5)
+sixthButton.bind("<Enter>", onHover)
+sixthButton.bind("<Leave>", onLeave)
+
+horizontalSeparator = ttk.Separator(root, orient="horizontal")
+horizontalSeparator.grid(row=2, columnspan=6, sticky="ew")
 
 # run the application
 root.mainloop()
