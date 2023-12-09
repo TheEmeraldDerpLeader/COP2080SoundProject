@@ -145,8 +145,8 @@ class ButtonFunction(Button):
         fig, ax = plt.subplots(figsize=(8, 4))
         #ax.plot(time, signal, color='b')
         ax.set_xlabel('Time (seconds)')
-        ax.set_ylabel('Amplitude')
-        ax.set_title('Original Waveform')
+        ax.set_ylabel('Frequencies')
+        ax.set_title('Spectrogram')
 
         #Embed the plot in Tkinter window
         self.canvas = FigureCanvasTkAgg(fig)
