@@ -1,5 +1,15 @@
 # Change Log for Grant's Branch
 
+## Version 00.002.02
+
+### Audio
+- Changed/fixed resonant frequency calculations
+- Used fixed values for low med high frequencies instead of proportions of max
+
+
+### Other
+- Removed leftover debug print
+
 ## Version 00.002.01
 
 ### Audio

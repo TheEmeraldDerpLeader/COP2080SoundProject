@@ -5,8 +5,7 @@ from scipy.io import wavfile
 from pydub import AudioSegment
 
 #To Do:
-#rt60 sorta works, decibel data is inconsistent, seems 50/50
-# whether an unlucky amplitude results in unrealistic rt60
+#
 
 #Use to create a mono-channel wav file from another audio file. Avoids metadata and bit depth problems for scipy
 def CreateTempWav(filename):
@@ -40,11 +39,15 @@ def LoadData(filename):
 
     return samplerate,data
 
+#Calculates resonant frequency (frequency of highest amplitude)
+def CalculateResonantFrequency(spectrum, freqs):
+    return freqs[np.unravel_index(np.argmax(spectrum),spectrum.shape)[0]]
+
 #Calculates amplitudes at various time points for each frequency. Also make spectrogram
 def CalculateFrequencies(samplerate, data):
     #Create amplitude data for frquencies. Returns 2D array data, 1D array of frequencies, 1D array of timepoints, and image of graph
     spectrum, freqs, t, im = plt.specgram(data,Fs=samplerate,NFFT=1024, cmap=plt.get_cmap('autumn_r'))
-    print(f"Highest frequency is {max(freqs)} Hz")
+    print(f"Resonant frequency is {CalculateResonantFrequency(spectrum, freqs)} Hz")
     return spectrum,freqs,t,im
 
 #Find closest frequency above minimum
@@ -55,12 +58,11 @@ def SearchClosestGreater(freqs,minimum):
 #Gets data for specific frequencies of spectrum
 def GetLowMedHighData(spectrum,freqs):
     #return amplitude data for low freq, data for med freq, and data for high freq
-    maxFreq = max(freqs)
     
     #sample frequencies to test
-    lowFreq = SearchClosestGreater(freqs, maxFreq/4)
-    medFreq = SearchClosestGreater(freqs, maxFreq*2/4)
-    highFreq = SearchClosestGreater(freqs, maxFreq*3/4)
+    lowFreq = SearchClosestGreater(freqs, 100)
+    medFreq = SearchClosestGreater(freqs, 1000)
+    highFreq = SearchClosestGreater(freqs, 6000)
     
     #Gets spectrum data for each sample frequency
     return spectrum[np.nonzero((freqs == lowFreq))[0][0]],\
@@ -75,7 +77,6 @@ def ConvertAmpToDec(ampData):
 #Computes max volume time and RT60
 def ComputeRT60(decData, samplerate, t):
     #returns time when max decibels and length of time for rt60
-    print(decData)
     maxI = np.argmax(decData)
     dif5 = np.abs(decData[maxI:]-(decData[maxI]-5)).argmin()
     dif25 = np.abs(decData[maxI:]-(decData[maxI]-25)).argmin()
@@ -90,7 +91,8 @@ if __name__ == "__main__":
     #audioFile = "SmurfMushroomCat.ogg"
     #audioFile = "Cave14.ogg"
     #audioFile = "problemTest.wav"
-    audioFile = "ReverbFart.ogg"
+    #audioFile = "ReverbFart.ogg"
+    audioFile = "PolyHallClap.wav"
     
     samplerate, data = LoadData(audioFile)
     spectrum, freqs, t, im = CalculateFrequencies(samplerate,data)
