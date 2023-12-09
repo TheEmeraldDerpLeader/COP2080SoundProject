@@ -55,7 +55,7 @@ displayOGButton = ButtonFunction("Dsp OG Wave")
 displayOGButton.grid(row=0, column=1, ipadx=37.5)
 displayOGButton.bind("<Enter>", onHover)
 displayOGButton.bind("<Leave>", onLeave)
-displayOGButton.configure(command=displayOGButton.create_plot)
+displayOGButton.configure(command=displayOGButton.displayOGWave)
 
 # Combine graphs button
 combineButton = ButtonFunction("Combine")
@@ -68,21 +68,21 @@ cycleButton = ButtonFunction("Cycle")
 cycleButton.grid(row=0, column=3, ipadx=37.5)
 cycleButton.bind("<Enter>", onHover)
 cycleButton.bind("<Leave>", onLeave)
-cycleButton.configure(command=cycleButton.create_plot)
+# cycleButton.configure(command=cycleButton.create_plot)
 
 # Display combined waveform button
 dispCombinedButton = ButtonFunction("Dsp Combined Waves")
 dispCombinedButton.grid(row=0, column=4, ipadx=37.5)
 dispCombinedButton.bind("<Enter>", onHover)
 dispCombinedButton.bind("<Leave>", onLeave)
-dispCombinedButton.configure(command=dispCombinedButton.create_plot)
+# dispCombinedButton.configure(command=dispCombinedButton.create_plot)
 
 # Sixth plot
 sixthButton = ButtonFunction("Sixth Button")
 sixthButton.grid(row=0, column=5, ipadx=37.5)
 sixthButton.bind("<Enter>", onHover)
 sixthButton.bind("<Leave>", onLeave)
-sixthButton.configure(command=sixthButton.create_plot)
+sixthButton.configure(command=openButton.sixthplot)
 
 horizontalSeparator = ttk.Separator(root, orient="horizontal")
 horizontalSeparator.grid(row=2, columnspan=6, sticky="ew")
