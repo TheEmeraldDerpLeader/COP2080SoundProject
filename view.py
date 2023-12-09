@@ -18,7 +18,6 @@ Display Graphs in Grid formation with RT60 values listed directly below them
 import tkinter as tk
 from tkinter import ttk
 from buttonfun import ButtonFunction
-# from ComputationModel import *
 
 # create the window
 root = tk.Tk()
