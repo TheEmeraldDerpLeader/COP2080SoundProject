@@ -67,6 +67,7 @@ cycleButton = ButtonFunction("Cycle")
 cycleButton.grid(row=0, column=3, ipadx=37.5)
 cycleButton.bind("<Enter>", onHover)
 cycleButton.bind("<Leave>", onLeave)
+cycleButton.configure(command=cycleButton.cycle)
 # cycleButton.configure(command=cycleButton.create_plot)
 
 # Display combined waveform button

@@ -28,6 +28,7 @@ class ButtonFunction(Button):
         self.filepath = ""
         self.canvas = None
         self.canvas_widget = None
+        self.counter = 0
 
     def load_audio(self):
         """
@@ -94,8 +95,38 @@ class ButtonFunction(Button):
         pass
 
     def cycle(self):
+        # Get data for frequencies
+        sample_rate, data = LoadData(ButtonFunction.filePath)
+        spectrum, frequencies, _, _ = CalculateFrequencies(sample_rate, data)
+        lowArray, medArray, highArray = GetLowMedHighData(spectrum, frequencies)
 
+        # Create a time array
+        time = np.linspace(0, len(lowArray) / sample_rate, num=len(lowArray))
+        fig, ax = plt.subplots(figsize=(8, 4))
+        # Check to see which frequency to show
+        if self.counter % 3 == 0:
+            # Plot the waveform
+            ax.plot(time, lowArray, color='b')
+            ax.set_title('Low Frequency Waveform')
+        elif self.counter % 3 == 1:
+            # Plot the waveform
+            ax.plot(time, medArray, color='r')
+            ax.set_title('Medium Frequency Waveform')
+        else:
+            ax.plot(time, highArray, color='g')
+            ax.set_title('High Frequency Waveform')
+
+        ax.set_xlabel('Time (seconds)')
+        ax.set_ylabel('Amplitude')
+
+        # Embed the plot in Tkinter window
+        self.canvas = FigureCanvasTkAgg(fig)
+        self.canvas_widget = self.canvas.get_tk_widget()
+        self.canvas_widget.grid(row=6, columnspan=6, sticky="ew")
+
+        self.counter += 1
         pass
+
     def sixthplot(self):
         print(self.filepath)
         pass
