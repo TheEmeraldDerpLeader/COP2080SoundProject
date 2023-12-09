@@ -97,25 +97,48 @@ class ButtonFunction(Button):
     def cycle(self):
         # Get data for frequencies
         sample_rate, data = LoadData(ButtonFunction.filePath)
-        spectrum, frequencies, _, _ = CalculateFrequencies(sample_rate, data)
+        spectrum, frequencies, t, im = CalculateFrequencies(sample_rate, data)
         lowArray, medArray, highArray = GetLowMedHighData(spectrum, frequencies)
 
         # Create a time array
         time = np.linspace(0, len(lowArray) / sample_rate, num=len(lowArray))
         fig, ax = plt.subplots(figsize=(8, 4))
         # Check to see which frequency to show
+        #copy from here
         if self.counter % 3 == 0:
             # Plot the waveform
             ax.plot(time, lowArray, color='b')
             ax.set_title('Low Frequency Waveform')
+            
+            decD = ConvertAmpToDec(lowArray)
+            startT, rtT = ComputeRT60(decD,sample_rate,t)
+
+            frequencyText = Label(text=f"RT60: {rtT}", bg="light gray")
+            frequencyText.grid(row=8, column=0, columnspan=3)
+            timeText = Label(text=f"Max time: {max(time)}", bg="light gray")
+            timeText.grid(row=8, column=3, columnspan=3)
         elif self.counter % 3 == 1:
             # Plot the waveform
             ax.plot(time, medArray, color='r')
             ax.set_title('Medium Frequency Waveform')
+            decD = ConvertAmpToDec(medArray)
+            startT, rtT = ComputeRT60(decD,sample_rate,t)
+
+            frequencyText = Label(text=f"RT60: {rtT}", bg="light gray")
+            frequencyText.grid(row=8, column=0, columnspan=3)
+            timeText = Label(text=f"Max time: {max(time)}", bg="light gray")
+            timeText.grid(row=8, column=3, columnspan=3)
         else:
             ax.plot(time, highArray, color='g')
             ax.set_title('High Frequency Waveform')
+            decD = ConvertAmpToDec(highArray)
+            startT, rtT = ComputeRT60(decD,sample_rate,t)
 
+            frequencyText = Label(text=f"RT60: {rtT}", bg="light gray")
+            frequencyText.grid(row=8, column=0, columnspan=3)
+            timeText = Label(text=f"Max time: {max(time)}", bg="light gray")
+            timeText.grid(row=8, column=3, columnspan=3)
+        #to here
         ax.set_xlabel('Time (seconds)')
         ax.set_ylabel('Amplitude')
 
@@ -128,29 +151,5 @@ class ButtonFunction(Button):
         pass
 
     def sixthplot(self):
-        """
-        Plot the wave
-        RT60
-        """
-        self.graphTitle()
-
-        # Embed graph
-        # Get the audio data
-        frame_rate, signal = LoadData(ButtonFunction.filePath)
-
-        # Create a time array
-        time = np.linspace(0, len(signal) / frame_rate, num=len(signal))
-
-        # Plot the waveform
-        fig, ax = plt.subplots(figsize=(8, 4))
-        #ax.plot(time, signal, color='b')
-        ax.set_xlabel('Time (seconds)')
-        ax.set_ylabel('Frequencies')
-        ax.set_title('Spectrogram')
-
-        #Embed the plot in Tkinter window
-        self.canvas = FigureCanvasTkAgg(fig)
-        self.canvas_widget = self.canvas.get_tk_widget()
-        self.canvas_widget.grid(row=6, columnspan=6, sticky="ew")
-        
-        self.displayStaticits()
+        print(self.filepath)
+        pass
