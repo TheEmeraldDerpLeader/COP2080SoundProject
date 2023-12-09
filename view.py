@@ -22,8 +22,8 @@ from buttonfun import ButtonFunction
 # create the window
 root = tk.Tk()
 root.title("CSP Sound Project")
-root.resizable(False, False)
-root.geometry('900x600')
+root.resizable(True, True)
+root.geometry('809x475')
 root.config(bg='light gray')
 
 """
@@ -56,12 +56,6 @@ displayOGButton.bind("<Enter>", onHover)
 displayOGButton.bind("<Leave>", onLeave)
 displayOGButton.configure(command=displayOGButton.displayOGWave)
 
-# Combine graphs button
-combineButton = ButtonFunction("Combine")
-combineButton.grid(row=0, column=2, ipadx=37.5)
-combineButton.bind("<Enter>", onHover)
-combineButton.bind("<Leave>", onLeave)
-
 # Cycle button
 cycleButton = ButtonFunction("Cycle")
 cycleButton.grid(row=0, column=3, ipadx=37.5)
@@ -75,17 +69,17 @@ dispCombinedButton = ButtonFunction("Dsp Combined Waves")
 dispCombinedButton.grid(row=0, column=4, ipadx=37.5)
 dispCombinedButton.bind("<Enter>", onHover)
 dispCombinedButton.bind("<Leave>", onLeave)
-# dispCombinedButton.configure(command=dispCombinedButton.create_plot)
+dispCombinedButton.configure(command=dispCombinedButton.displayCombined)
 
 # Sixth plot
-sixthButton = ButtonFunction("Sixth Button")
-sixthButton.grid(row=0, column=5, ipadx=37.5)
-sixthButton.bind("<Enter>", onHover)
-sixthButton.bind("<Leave>", onLeave)
-sixthButton.configure(command=openButton.sixthplot)
+spectrogram = ButtonFunction("Spectrogram Button")
+spectrogram.grid(row=0, column=5, ipadx=37.5)
+spectrogram.bind("<Enter>", onHover)
+spectrogram.bind("<Leave>", onLeave)
+spectrogram.configure(command=spectrogram.sixthplot)
 
 horizontalSeparator = ttk.Separator(root, orient="horizontal")
-horizontalSeparator.grid(row=2, columnspan=6, sticky="ew")
+horizontalSeparator.grid(row=2, columnspan=10, sticky="ew")
 
 # run the application
 root.mainloop()
